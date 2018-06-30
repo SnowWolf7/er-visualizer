@@ -1,0 +1,47 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index
+GET     /page                       controllers.Application.page(query: Option[String])
+GET     /page/db/:db                controllers.Application.pageId(db: String)
+GET     /search                     controllers.Application.search
+
+# Docs etc.
+GET /docs/doc/:doc    controllers.Application.document(doc: String, db: Option[String])
+GET /docs/sentence/:doc/:sid    controllers.Application.sentence(doc: String, sid: Int, db: Option[String])
+
+# Entity Stuff
+GET /entity/all             controllers.Application.entityHeaders(db: Option[String])
+GET /entity/info/:id        controllers.Application.entityInfo(id: String, db: Option[String])
+GET /entity/fb/:id        controllers.Application.entityFreebase(id: String, db: Option[String])
+GET /entity/rels/:id        controllers.Application.entityRelations(id: String, db: Option[String])
+GET /entity/types/:id        controllers.Application.entityTypes(id: String, db: Option[String])
+GET /entity/text/:id        controllers.Application.entityText(id: String, db: Option[String], limit: Option[Int])
+GET /entity/typeprov/:id/:etype        controllers.Application.entityTypeProv(id: String, etype: String, db: Option[String], limit: Option[Int])
+GET /entity/provs/:id        controllers.Application.entityProvs(id: String, db: Option[String])
+
+GET /entity/kba/:id        controllers.Application.entityKBA(id: String)
+
+# Relation Stuff
+GET /relation/all                       controllers.Application.relationHeaders(db: Option[String])
+GET /relation/fb/:sid/:tid        controllers.Application.relationFreebase(sid: String, tid: String, db: Option[String])
+GET /relation/types/:sid/:tid        controllers.Application.relationPredictions(sid: String, tid: String, db: Option[String])
+GET /relation/text/:sid/:tid        controllers.Application.relationText(sid: String, tid: String, db: Option[String], limit: Option[Int])
+GET /relation/typeprov/:sid/:tid/:rtype        controllers.Application.relationProvenances(sid: String, tid: String, rtype: String, db: Option[String], limit: Option[Int])
+GET /relation/provs/:sid/:tid        controllers.Application.relationProvs(sid: String, tid: String, db: Option[String])
+
+GET /relation/kba/:sid/:tid        controllers.Application.relationKBA(sid: String, tid: String)
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
+### KBA stuff
+
+GET     /kba                              controllers.ApplicationKBA.index
+GET /kba/entities                         controllers.ApplicationKBA.entities
+GET /kba/documents/:eid                   controllers.ApplicationKBA.documents(eid: String)
+GET /kba/wordcloud/:eid/:cid/:timestamp   controllers.ApplicationKBA.clusterWordCloud(eid: String, cid: Int, timestamp: Long)
+GET /kba/wordcloud/:eid/:timestamp        controllers.ApplicationKBA.documentWordCloud(eid: String, timestamp: Long)

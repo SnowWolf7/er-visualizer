@@ -1,0 +1,122 @@
+@(title: String)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("javascripts/colorbrewer.js")" type="text/javascript" charset="utf-8"></script>
+        <script src="@routes.Assets.at("javascripts/d3/d3.v3.min.js")" type="text/javascript" charset="utf-8"></script>
+        <script src="@routes.Assets.at("javascripts/d3/topojson.v1.min.js")" type="text/javascript" charset="utf-8"></script>
+        <script src="@routes.Assets.at("javascripts/typeahead.bundle.min.js")" type="text/javascript" charset="utf-8"></script>
+        <link href="@routes.Assets.at("javascripts/bootstrap/css/bootstrap.min.css")" rel="stylesheet" media="screen">
+        <script src="@routes.Assets.at("javascripts/bootstrap/js/bootstrap.min.js")" type="text/javascript"></script>
+        <!--<link href="@routes.Assets.at("stylesheets/font-awesome/css/font-awesome.min.css")" rel="stylesheet">-->
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/main.js")" type="text/javascript"></script>
+        <style>
+        .provWindow {
+            width:  80%;
+            visibility: visible;
+            top: 15px;
+            right: 10%;
+        }
+        </style>
+    </head>
+    <body class="container">
+
+        <div class="jumbotron">
+            <h1>UW Entity Relation Visualizer</h1>
+            <p>
+            Select the documents to visualize by search for keywords. <!--, topics ("topic:"), or entities ("ent:").-->
+            </p>
+            <div class="input-group input-group-lg">
+              <input id="queryInput" type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" onclick="search();">Go!</a>
+              </span>
+            </div><!-- /input-group -->
+        </div>
+
+        <!--h2>Example Queries</h2>
+
+        <div class="btn-group-vertical btn-group-lg" role="group" aria-label="..." style="width:100%">
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+          <a href="" class="btn btn-default">Example 1</a>
+        </div-->
+
+        <!--h2>Topic Clusters</h2>
+
+        <div class="btn-group-vertical btn-group-lg" role="group" aria-label="..." style="width:100%">
+            <a href="/page?query=topic:content0" class="btn btn-default" style="text-align:left"><b>Topic 0: </b>rights, women, human, children, violence, sudan, uganda, child, government, sexual</a>
+            <a href="/page?query=topic:content1" class="btn btn-default" style="text-align:left"><b>Topic 1: </b>security, international, development, human, national, rights, states, law, conflict, economic</a>
+            <a href="/page?query=topic:content2" class="btn btn-default" style="text-align:left"><b>Topic 2: </b>house, senate, assembly, national, speaker, representatives, committee, president, senator, members</a>
+            <a href="/page?query=topic:content3" class="btn btn-default" style="text-align:left"><b>Topic 3: </b>health, ebola, disease, medical, virus, doctors, hospital, outbreak, people, cases</a>
+            <a href="/page?query=topic:content4" class="btn btn-default" style="text-align:left"><b>Topic 4: </b>u.s, united, states, africa, government, african, secretary, countries, support, department</a>
+            <a href="/page?query=topic:content5" class="btn btn-default" style="text-align:left"><b>Topic 5: </b>social, book, political, society, university, history, world, state, western, professor</a>
+            <a href="/page?query=topic:content6" class="btn btn-default" style="text-align:left"><b>Topic 6: </b>people, country, government, time, things, make, lot, thing, problem, issue</a>
+            <a href="/page?query=topic:content7" class="btn btn-default" style="text-align:left"><b>Topic 7: </b>political, country, government, nigerian, public, nigerians, fact, power, nation, time</a>
+            <a href="/page?query=topic:content8" class="btn btn-default" style="text-align:left"><b>Topic 8: </b>girls, chibok, abducted, government, school, borno, state, abduction, parents, students</a>
+            <a href="/page?query=topic:content9" class="btn btn-default" style="text-align:left"><b>Topic 9: </b>state, states, emergency, borno, yobe, government, federal, adamawa, security, governor</a>
+            <a href="/page?query=topic:content10" class="btn btn-default" style="text-align:left"><b>Topic 10: </b>maritime, oil, piracy, navy, naval, nigerian, sea, theft, security, gulf</a>
+            <a href="/page?query=topic:content11" class="btn btn-default" style="text-align:left"><b>Topic 11: </b>drug, drugs, illegal, trafficking, crime, tobacco, customs, wildlife, products, smuggling</a>
+            <a href="/page?query=topic:content12" class="btn btn-default" style="text-align:left"><b>Topic 12: </b>military, army, soldiers, nigerian, defence, troops, air, terrorists, forces, chief</a>
+            <a href="/page?query=topic:content13" class="btn btn-default" style="text-align:left"><b>Topic 13: </b>oil, farmers, production, dangote, products, food, company, land, rice, market</a>
+            <a href="/page?query=topic:content14" class="btn btn-default" style="text-align:left"><b>Topic 14: </b>country, nation, people, nigerians, leadership, years, leaders, today, world, day</a>
+            <a href="/page?query=topic:content15" class="btn btn-default" style="text-align:left"><b>Topic 15: </b>bomb, people, blast, attack, killed, victims, hospital, injured, nyanya, suicide</a>
+            <a href="/page?query=topic:content16" class="btn btn-default" style="text-align:left"><b>Topic 16: </b>god, church, muslims, religious, christian, christians, muslim, religion, islam, islamic</a>
+            <a href="/page?query=topic:content17" class="btn btn-default" style="text-align:left"><b>Topic 17: </b>liberia, national, government, development, public, sector, year, country, liberian, support</a>
+            <a href="/page?query=topic:content18" class="btn btn-default" style="text-align:left"><b>Topic 18: </b>state, governor, government, governors, rivers, chief, people, lagos, imo, house</a>
+            <a href="/page?query=topic:content19" class="btn btn-default" style="text-align:left"><b>Topic 19: </b>tourism, book, kenya, soyinka, culture, books, art, arts, african, world</a>
+            <a href="/page?query=topic:content20" class="btn btn-default" style="text-align:left"><b>Topic 20: </b>court, justice, law, federal, accused, case, trial, judge, act, rights</a>
+            <a href="/page?query=topic:content21" class="btn btn-default" style="text-align:left"><b>Topic 21: </b>state, governor, alhaji, kano, emir, borno, shettima, government, kaduna, ibrahim</a>
+            <a href="/page?query=topic:content22" class="btn btn-default" style="text-align:left"><b>Topic 22: </b>north, northern, delta, niger, president, region, south, people, country, igbo</a>
+            <a href="/page?query=topic:content23" class="btn btn-default" style="text-align:left"><b>Topic 23: </b>boko, haram, maiduguri, insurgents, killed, attack, state, town, borno, people</a>
+            <a href="/page?query=topic:content24" class="btn btn-default" style="text-align:left"><b>Topic 24: </b>government, sector, development, national, service, federal, nigerian, support, ministry, project</a>
+            <a href="/page?query=topic:content25" class="btn btn-default" style="text-align:left"><b>Topic 25: </b>conference, national, delegates, constitution, state, committee, states, federal, government, issues</a>
+            <a href="/page?query=topic:content26" class="btn btn-default" style="text-align:left"><b>Topic 26: </b>lagos, road, market, fuel, vehicles, city, roads, abuja, area, traffic</a>
+            <a href="/page?query=topic:content27" class="btn btn-default" style="text-align:left"><b>Topic 27: </b>boko, haram, war, military, terrorism, security, country, terrorists, terror, insurgency</a>
+            <a href="/page?query=topic:content28" class="btn btn-default" style="text-align:left"><b>Topic 28: </b>government, boko, haram, ceasefire, committee, federal, dialogue, sect, members, agreement</a>
+            <a href="/page?query=topic:content29" class="btn btn-default" style="text-align:left"><b>Topic 29: </b>letter, party, president, obasanjo, country, pdp, nigerians, political, security, interest</a>
+            <a href="/page?query=topic:content30" class="btn btn-default" style="text-align:left"><b>Topic 30: </b>state, people, displaced, adamawa, government, mubi, local, insurgents, persons, yola</a>
+            <a href="/page?query=topic:content31" class="btn btn-default" style="text-align:left"><b>Topic 31: </b>school, education, schools, students, children, university, teachers, secondary, state, government</a>
+            <a href="/page?query=topic:content32" class="btn btn-default" style="text-align:left"><b>Topic 32: </b>man, time, back, people, day, life, told, home, family, years</a>
+            <a href="/page?query=topic:content33" class="btn btn-default" style="text-align:left"><b>Topic 33: </b>shekau, video, leader, abubakar, boko, haram, sect, islamic, group, killed</a>
+            <a href="/page?query=topic:content34" class="btn btn-default" style="text-align:left"><b>Topic 34: </b>zimbabwe, football, cup, world, year, sports, viewing, team, fans, match</a>
+            <a href="/page?query=topic:content35" class="btn btn-default" style="text-align:left"><b>Topic 35: </b>president, jonathan, goodluck, meeting, minister, presidential, nigerians, jonathan's, administration, national</a>
+            <a href="/page?query=topic:content36" class="btn btn-default" style="text-align:left"><b>Topic 36: </b>party, pdp, apc, election, political, elections, state, national, presidential, inec</a>
+            <a href="/page?query=topic:content37" class="btn btn-default" style="text-align:left"><b>Topic 37: </b>girls, chibok, government, abducted, group, boko, women, nigerian, haram, school</a>
+            <a href="/page?query=topic:content38" class="btn btn-default" style="text-align:left"><b>Topic 38: </b>police, security, state, arrested, members, suspects, boko, arrest, haram, agencies</a>
+            <a href="/page?query=topic:content39" class="btn btn-default" style="text-align:left"><b>Topic 39: </b>african, united, regional, nations, security, council, peace, union, states, efforts</a>
+            <a href="/page?query=topic:content40" class="btn btn-default" style="text-align:left"><b>Topic 40: </b>security, government, country, boko, haram, federal, nigerians, insurgency, called, urged</a>
+            <a href="/page?query=topic:content41" class="btn btn-default" style="text-align:left"><b>Topic 41: </b>cameroon, chad, border, countries, niger, boko, haram, security, french, borders</a>
+            <a href="/page?query=topic:content42" class="btn btn-default" style="text-align:left"><b>Topic 42: </b>media, airport, nigerian, aviation, aircraft, news, information, journalists, air, newspaper</a>
+            <a href="/page?query=topic:content43" class="btn btn-default" style="text-align:left"><b>Topic 43: </b>africa, african, south, continent, countries, africa's, africans, people, black, economic</a>
+            <a href="/page?query=topic:content44" class="btn btn-default" style="text-align:left"><b>Topic 44: </b>economic, economy, growth, cent, africa, sector, development, world, countries, billion</a>
+            <a href="/page?query=topic:content45" class="btn btn-default" style="text-align:left"><b>Topic 45: </b>boko, haram, nigerian, group, attacks, military, killed, people, nigeria's, state</a>
+            <a href="/page?query=topic:content46" class="btn btn-default" style="text-align:left"><b>Topic 46: </b>music, industry, film, movie, piracy, nollywood, nigerian, movies, entertainment, market</a>
+            <a href="/page?query=topic:content47" class="btn btn-default" style="text-align:left"><b>Topic 47: </b>boko, haram, sheriff, borno, governor, davis, modu, state, ihejirika, ali</a>
+            <a href="/page?query=topic:content48" class="btn btn-default" style="text-align:left"><b>Topic 48: </b>billion, money, bank, cbn, million, government, oil, south, naira, sanusi</a>
+            <a href="/page?query=topic:content49" class="btn btn-default" style="text-align:left"><b>Topic 49: </b>apc, party, statement, pdp, president, boko, nigerians, jonathan, government, national</a>
+        </div-->
+
+        <script>
+
+        function search() {
+            location.href='/page?query=' + encodeURI(document.getElementById('queryInput').value);
+        }
+
+        </script>
+    </body>
+</html>

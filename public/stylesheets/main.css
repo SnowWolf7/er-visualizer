@@ -1,0 +1,248 @@
+.relation {
+  stroke: #444;
+  stroke-width: 5px;
+  opacity: 0.1;
+  stroke-linecap: round;
+}
+
+.entity {
+  stroke: #000;
+  stroke-width: 1px;
+  opacity: 0.3;
+}
+
+.perEnt {
+  fill: #8ac;
+}
+
+.locEnt {
+  fill: #a8c;
+}
+
+.orgEnt {
+  fill: #ac8;
+}
+
+.miscEnt {
+  fill: #888;
+}
+
+.selected {
+  opacity: 1.0;
+}
+
+.hover {
+  opacity: 1.0;
+}
+
+path {
+  stroke: #444444;
+  stroke-width: 0.5px;
+  fill: #eeeeee;
+}
+
+body, html {
+  height: 100%;
+}
+
+.container {
+  position:relative;
+  max-width:100%;
+  width:100%;
+  height:100%;
+  padding:0px;
+}
+
+.graphWindow {
+/*  position:absolute;
+  width:60%;
+  left: 0px;*/
+  height:100%;
+}
+
+.provWindow {
+  float:right;
+  width:20%;
+  position:absolute;
+  right:5px;
+  top:5px;
+  z-index:100;
+  visibility: hidden;
+  overflow:auto;
+  max-height: 100%;
+  /*margin-left: 60%;
+  margin-right:0px;*/
+}
+
+.kbaWindow {
+  float:right;
+  width:58%;
+  position:absolute;
+  bottom:0;
+  z-index:100;
+  visibility: hidden;
+  left: 21%;
+  overflow:auto;
+  max-height: 270px;
+  margin-bottom: 5px;
+  /*margin-left: 60%;
+  margin-right:0px;*/
+}
+
+.kbaPanel {
+  border: 0px;
+}
+
+#infoBoxPanel {
+  max-height: 200px;
+  overflow:auto;
+}
+
+.provListGroup {
+  margin-bottom: 0px;
+}
+
+.prov-item {
+  padding: 3px;
+}
+
+.provPanelBody {
+  padding: 5px;
+}
+
+.docId {
+  font-size: 8px;
+  margin-right:10px;
+}
+
+.docId::before {
+    content: "[";
+}
+
+.docId::after {
+    content: "]";
+}
+
+.canvas {
+  background-color: #fefefe;
+  border: 1px solid #666;
+  height: 100%;
+  width: 100%;
+  position:absolute;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.center {
+  position: absolute;
+  top:10px;
+  left:50%;
+  z-index:100;
+}
+
+.centerContent {
+  position: relative;
+  left:-50%;
+  z-index:100;
+}
+
+.infoBox {
+  width: 20%;
+  float: left;
+  position:absolute;
+  top:5px;
+  left:5px;
+  visibility: hidden;
+  overflow:auto;
+  max-height: 100%;
+  /*
+  height: 300px;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #666;
+  border-radius: 5px;
+  */
+}
+
+.closeButton {
+  float:right;
+}
+
+/* typeahead specific style */
+.typeahead,
+.tt-query,
+.tt-hint {
+  width: 100%;
+  height: 40px;
+  padding: 4px 6px;
+  font-size: 16px;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+}
+
+.twitter-typeahead {
+  width: 250px;
+}
+
+.typeahead:focus {
+  border: 2px solid #0097cf;
+}
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-dropdown-menu {
+  width: 250px;
+  margin-top: 6px;
+  padding: 4px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 12px;
+  line-height: 24px;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+.gist {
+  font-size: 14px;
+}
+
+.wordwrap {
+   white-space: pre-wrap;      /* CSS3 */
+   white-space: -moz-pre-wrap; /* Firefox */
+   white-space: -pre-wrap;     /* Opera <7 */
+   white-space: -o-pre-wrap;   /* Opera 7 */
+   word-wrap: break-word;      /* IE */
+}
